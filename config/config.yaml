@@ -1,0 +1,26 @@
+# Model Configuration
+model:
+  name: "openai/clip-vit-base-patch32"
+  device: "cuda"
+  batch_size: 32
+
+# Database Configuration
+database:
+  persist_directory: "data/embeddings"
+  collection_name: "biomedical_images"
+  similarity_metric: "cosine"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_upload_size: 10485760  # 10MB in bytes
+
+# Image Processing
+image:
+  max_size: 224  # Maximum dimension for input images
+  supported_formats: [".jpg", ".jpeg", ".png", ".tiff", ".dicom"]
+  preprocessing:
+    resize: true
+    normalize: true
+    convert_to_rgb: true
