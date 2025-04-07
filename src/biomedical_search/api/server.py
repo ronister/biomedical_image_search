@@ -9,9 +9,11 @@ import uvicorn
 import os
 import tempfile
 import torch
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ..data_processing.database import ImageDatabase
-from ..utils.image_utils import load_image, prepare_model
+from data_processing.database import ImageDatabase
+from utils.image_utils import load_image, prepare_model
 
 # Initialize database and model
 db = ImageDatabase()
@@ -64,9 +66,9 @@ async def search_similar_images(
         
         # Extract features from the image
         with torch.no_grad():
-            features = model.encode_image(img_tensor)
-            # Normalize the features
-            features = features / features.norm(dim=-1, keepdim=True)
+            features = model.encode_image(img_tensor, normalize=True) # Normalize the features
+            # We could Normalize the features like this:
+            # features = features / features.norm(dim=-1, keepdim=True)
         
         # Convert to numpy array
         query_embedding = features.cpu().numpy().squeeze()
@@ -89,4 +91,4 @@ async def search_similar_images(
         raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

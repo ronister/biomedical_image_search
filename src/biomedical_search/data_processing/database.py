@@ -7,7 +7,10 @@ from typing import List, Dict, Any
 import numpy as np
 from tqdm import tqdm
 import torch
-from ..utils.image_utils import load_image, prepare_model
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.image_utils import load_image, prepare_model, find_cell_images, get_image_metadata
 
 class ImageDatabase:
     def __init__(self, persist_directory: str = "data/embeddings"):
@@ -18,6 +21,10 @@ class ImageDatabase:
             persist_directory: Directory to persist the database
         """
         self.client = chromadb.PersistentClient(path=persist_directory)
+        is_remove_collection = False
+        if is_remove_collection:
+            self.client.delete_collection(name="biomedical_images")
+            
         self.collection = self.client.get_or_create_collection(
             name="biomedical_images",
             metadata={"hnsw:space": "cosine"}
@@ -89,7 +96,7 @@ class ImageDatabase:
             directory_path: Path to directory containing images
             batch_size: Batch size for processing images
         """
-        from ..utils.image_utils import find_cell_images, get_image_metadata
+        
         
         # Find all valid images
         image_paths = find_cell_images(directory_path, recursive=False)
@@ -124,9 +131,9 @@ class ImageDatabase:
             
             # Extract embeddings
             with torch.no_grad():
-                batch_features = self.model.encode_image(batch_tensors)
-                # Normalize the features
-                batch_features = batch_features / batch_features.norm(dim=-1, keepdim=True)
+                batch_features = self.model.encode_image(batch_tensors, normalize=True) # Normalize the features
+                # We could Normalize the features like this:
+                # batch_features = batch_features / batch_features.norm(dim=-1, keepdim=True)
             
             all_embeddings.append(batch_features.cpu().numpy())
         

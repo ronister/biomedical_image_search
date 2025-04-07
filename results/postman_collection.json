@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "58b2f1da-829c-4533-861e-1f4aa63d12e1",
+		"name": "Biomedical similar image search collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17925124"
+	},
+	"item": [
+		{
+			"name": "Biomedical similar image search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "query_image",
+							"type": "file",
+							"src": "///wsl.localhost/Ubuntu-24.04/home/ubuntu_user/main/learning/biomedical_image_search/data/raw/dev/1_769p.jpg"
+						},
+						{
+							"key": "n_results",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"search"
+					],
+					"query": []
+				}
+			},
+			"response": []
+		}
+	]
+}

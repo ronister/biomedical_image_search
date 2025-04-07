@@ -2,7 +2,6 @@
 Utility functions for image processing and handling.
 """
 
-import cv2
 import numpy as np
 from typing import List, Union
 from pathlib import Path
@@ -23,7 +22,7 @@ def prepare_model():
     model.eval()
     return model, preprocess, device
 
-def load_image(image_path: Union[str, Path]) -> np.ndarray:
+def load_image(image_path: Union[str, Path]) -> Image:
     """
     Load and preprocess an image.
     
@@ -46,7 +45,7 @@ def load_image(image_path: Union[str, Path]) -> np.ndarray:
         if image.mode != 'RGB':
             image = image.convert('RGB')
             
-        return np.array(image)
+        return image
     except Exception as e:
         print(f"Error loading image from {image_path}: {str(e)}")
         return None
@@ -94,7 +93,9 @@ def get_image_metadata(image_path: Union[str, Path]) -> dict:
     }
     
     # Determine dataset from path
-    if "EVICAN_train2019" in path:
+    if "dev" in path:
+        metadata["dataset"] = "dev"
+    elif "EVICAN_train2019" in path:
         metadata["dataset"] = "train"
     elif "EVICAN_val2019" in path:
         metadata["dataset"] = "val"

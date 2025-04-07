@@ -7,6 +7,19 @@
             "request": "launch",
             "program": "${workspaceFolder}/tests/test_model_load.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "process_images",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/biomedical_search/scripts/process_images.py",
+            "justMyCode": false
+        },
+        {
+            "name": "run_server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/biomedical_search/api/server.py",
         }
     ]
 }

@@ -3,7 +3,9 @@ Script to process all images from the EVICAN datasets and store them in the data
 """
 
 import os
-from ..data_processing.database import ImageDatabase
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from data_processing.database import ImageDatabase
 
 def main():
     # Initialize database
@@ -11,6 +13,7 @@ def main():
     
     # Process each dataset
     datasets = {
+        #"dev": "data/raw/dev",
         "train": "data/raw/EVICAN_train2019",
         "val": "data/raw/EVICAN_val2019",
         "test": "data/raw/EVICAN_eval2019"
