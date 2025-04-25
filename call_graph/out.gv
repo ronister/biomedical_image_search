@@ -1,0 +1,78 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='black'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_ca3f595a [label="16: __init__()" name="database::ImageDatabase.__init__" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_ce569933 [label="36: add_images()" name="database::ImageDatabase.add_images" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_3192a06f [label="91: process_and_add_directory()" name="database::ImageDatabase.process_and_add_directory" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_a5b10077 [label="60: search_similar()" name="database::ImageDatabase.search_similar" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_be054cac [label="107: find_cell_images()" name="image_utils::find_cell_images" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_7bc34070 [label="79: get_image_metadata()" name="image_utils::get_image_metadata" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_d3e77a5a [label="25: load_image()" name="image_utils::load_image" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_5006771c [label="15: prepare_model()" name="image_utils::prepare_model" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_303e2dd7 [label="53: validate_image()" name="image_utils::validate_image" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_7531fcfe [label="0: (global)()" name="process_images::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_bc103cb2 [label="10: main()" name="process_images::main" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_484b03bc [label="0: (global)()" name="server::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_114c4761 [label="38: search_similar_images()" name="server::search_similar_images" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_ca3f595a -> node_5006771c [color="#56B4E9" penwidth="2"];
+node_3192a06f -> node_ce569933 [color="#CC79A7" penwidth="2"];
+node_3192a06f -> node_be054cac [color="#CC79A7" penwidth="2"];
+node_3192a06f -> node_7bc34070 [color="#CC79A7" penwidth="2"];
+node_3192a06f -> node_d3e77a5a [color="#CC79A7" penwidth="2"];
+node_be054cac -> node_303e2dd7 [color="#F0E442" penwidth="2"];
+node_be054cac -> node_303e2dd7 [color="#F0E442" penwidth="2"];
+node_7531fcfe -> node_bc103cb2 [color="#D55E00" penwidth="2"];
+node_bc103cb2 -> node_ca3f595a [color="#56B4E9" penwidth="2"];
+node_bc103cb2 -> node_3192a06f [color="#56B4E9" penwidth="2"];
+node_484b03bc -> node_ca3f595a [color="#F0E442" penwidth="2"];
+node_484b03bc -> node_5006771c [color="#F0E442" penwidth="2"];
+node_114c4761 -> node_a5b10077 [color="#E69F00" penwidth="2"];
+node_114c4761 -> node_d3e77a5a [color="#E69F00" penwidth="2"];
+subgraph cluster_3fc06bdf {
+    label="File: database";
+    name="database";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_76ae7313 {
+        node_ca3f595a node_ce569933 node_a5b10077 node_3192a06f;
+        label="Class: ImageDatabase";
+        name="ImageDatabase";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_185dba67 {
+    node_5006771c node_d3e77a5a node_303e2dd7 node_7bc34070 node_be054cac;
+    label="File: image_utils";
+    name="image_utils";
+    style="filled";
+    graph[style=dotted];
+};
+subgraph cluster_90a9150a {
+    node_bc103cb2 node_7531fcfe;
+    label="File: process_images";
+    name="process_images";
+    style="filled";
+    graph[style=dotted];
+};
+subgraph cluster_d984f402 {
+    node_114c4761 node_484b03bc;
+    label="File: server";
+    name="server";
+    style="filled";
+    graph[style=dotted];
+};
+}
