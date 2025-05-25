@@ -56,15 +56,15 @@ async def search_similar_images(
             content = await query_image.read()
             temp_file.write(content)
         
-        # Load and preprocess the image
+        # Load and convert the image to RGB mode
         image = load_image(temp_file_path)
         if image is None:
             raise HTTPException(status_code=400, detail="Invalid image file")
         
-        # Preprocess image for the model
+        # Preprocess image for the model (resize, normalize, etc.)
         img_tensor = preprocess(image).unsqueeze(0).to(device)
         
-        # Extract features from the image
+        # Extract Embeddings
         with torch.no_grad():
             features = model.encode_image(img_tensor, normalize=True) # Normalize the features
             # We could Normalize the features like this:

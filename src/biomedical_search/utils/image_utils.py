@@ -30,7 +30,7 @@ def load_image(image_path: Union[str, Path]) -> Image:
         image_path: Path to the image file
         
     Returns:
-        numpy.ndarray: Preprocessed image
+        PIL.Image: image in RGB mode
     """
     try:
         # Check if path is a URL
